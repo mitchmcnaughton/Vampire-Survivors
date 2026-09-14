@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        // TODO: Set the player's current health to their maximum health.
+        // TODO: Set the player's current health to their maximums health.
 
 
 
