@@ -67,11 +67,11 @@ public class PlayerHealth : MonoBehaviour
     {
         // TODO: Set the player's current health to their maximums health.
 
-
+        currentHP = maxHP;
 
         // TODO: Print the player's starting health to the Console.
 
-
+        Debug.Log("The player's starting health is " + currentHP + ".");
 
         if (movement == null)
         {
@@ -146,10 +146,10 @@ public class PlayerHealth : MonoBehaviour
             healthSlider.minValue = 0;
 
             // TODO: Set the slider's maximum value to the player's maximum health.
-            healthSlider.maxValue = 0;
+            healthSlider.maxValue = maxHP;
 
             // TODO: Set the slider's current value to the player's current health.
-            healthSlider.value = 0;
+            healthSlider.value = currentHP;
         }
     }
 
@@ -158,10 +158,10 @@ public class PlayerHealth : MonoBehaviour
         if (useHealthSlider == true && healthSlider != null)
         {
             // TODO: Set the slider's maximum value to the player's maximum health.
-            healthSlider.maxValue = 0;
+            healthSlider.maxValue = maxHP;
 
             // TODO: Set the slider's current value to the player's current health.
-            healthSlider.value = 0;
+            healthSlider.value = currentHP;
         }
 
         if (useHealthText == true && healthText != null)
@@ -175,12 +175,13 @@ public class PlayerHealth : MonoBehaviour
         // TODO: Give damageAmount a random value between
         // minimumDebugDamage and maximumDebugDamage.
         // Include both the minimum and maximum values.
-        int damageAmount = 0;
+        
+        int damageAmount = Random.Range(minimumDebugDamage, maximumDebugDamage+1);
 
 
-
+        
         // TODO: Print the randomly generated damage amount to the Console.
-
+        Debug.Log("random damage number is" + damageAmount);
 
 
         TakeDamage(damageAmount);
@@ -191,12 +192,13 @@ public class PlayerHealth : MonoBehaviour
         // TODO: Give healAmount a random value between
         // minimumDebugHeal and maximumDebugHeal.
         // Include both the minimum and maximum values.
-        int healAmount = 0;
+
+        int healAmount = Random.Range(minimumDebugHeal, maximumDebugHeal+1);
 
 
-
+        
         // TODO: Print the randomly generated healing amount to the Console.
-
+        Debug.Log("random healing number is: " + healAmount);
 
 
         Heal(healAmount);
@@ -211,16 +213,20 @@ public class PlayerHealth : MonoBehaviour
 
         // TODO: Subtract the damage amount from the player's current health.
 
-
+        currentHP = currentHP - amount;
 
         // TODO: Check whether the player's health is below zero.
         // If it is, set the player's health to zero.
+        if (currentHP < 0)
+        { 
+            currentHP = 0;
+        }
 
 
 
         // TODO: If debug logs are enabled, print the amount of damage taken
         // and the player's current health.
-
+        Debug.Log("amount of damage taken is" + amount + " and the player's current health is" + currentHP);
 
 
         UpdateHealthUI();
@@ -246,13 +252,17 @@ public class PlayerHealth : MonoBehaviour
 
         // TODO: Add the healing amount to the player's current health.
 
-
+        currentHP += amount;
 
         // TODO: Check whether the player's health is greater than maxHP.
         // If it is, set it back to maxHP.
+        if (currentHP > maxHP) 
+        {
+            currentHP = maxHP;
+        }
 
 
-
+        Debug.Log("The amount healed is" + amount + " and the player's current health is" + currentHP)
         // TODO: If debug logs are enabled, print the amount healed
         // and the player's current health.
 
