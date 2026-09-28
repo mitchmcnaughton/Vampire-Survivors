@@ -262,7 +262,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
 
-        Debug.Log("The amount healed is" + amount + " and the player's current health is" + currentHP)
+        Debug.Log("The amount healed is" + amount + " and the player's current health is" + currentHP);
         // TODO: If debug logs are enabled, print the amount healed
         // and the player's current health.
 
