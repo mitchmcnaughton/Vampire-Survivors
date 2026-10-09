@@ -32,11 +32,12 @@ public class PlayerMoney : MonoBehaviour
     {
         // TODO: Set the player's current money
         // to their starting money.
+        currentMoney = startingMoney;
 
 
 
         // TODO: Call the function that updates the money UI.
-
+        UpdateMoneyUI();
 
 
         if (showDebugLogs)
@@ -60,7 +61,7 @@ public class PlayerMoney : MonoBehaviour
         if (Keyboard.current[addMoneyKey].wasPressedThisFrame)
         {
             // TODO: Call AddMoney and give it debugAddAmount.
-
+            AddMoney(debugAddAmount);
         }
 
         // If the Spend Money key is pressed,
@@ -68,7 +69,7 @@ public class PlayerMoney : MonoBehaviour
         if (Keyboard.current[spendMoneyKey].wasPressedThisFrame)
         {
             // TODO: Call SpendMoney and give it debugSpendAmount.
-
+            SpendMoney(debugSpendAmount);
         }
     }
 
@@ -80,18 +81,22 @@ public class PlayerMoney : MonoBehaviour
         }
 
         // TODO: Add amount to the player's current money.
-
+        currentMoney += amount;
 
 
         // TODO: Call the function that updates the money UI.
 
-
+        UpdateMoneyUI();
     }
 
     public bool CanAfford(int amount)
     {
         // TODO: Return true if the player has enough money
         // to afford the amount.
+        if (currentMoney >= amount)
+        {
+            return true;
+        }
 
         return false;
     }
@@ -119,10 +124,10 @@ public class PlayerMoney : MonoBehaviour
 
         // TODO: Subtract amount from the player's current money.
 
-
+        currentMoney -= amount;
 
         // TODO: Call the function that updates the money UI.
-
+        UpdateMoneyUI();
 
 
         return true;
@@ -142,14 +147,14 @@ public class PlayerMoney : MonoBehaviour
 
         // TODO: Update the money text using moneyPrefix
         // and the player's current money.
-
+        moneyPrefix += currentMoney;
 
 
         if (gameOverMoneyText != null)
         {
             // TODO: Display the player's current money
             // on the Game Over screen.
-
+            gameOverMoneyText.text = moneyPrefix;
         }
     }
 }
