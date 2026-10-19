@@ -163,6 +163,14 @@ public class SingleMeleeAutoAttack : MonoBehaviour
         // Choose which direction the slash should appear.
         float direction = facingRight ? 1f : -1f;
 
+        //expanded version of above
+        // if (facingRight)
+        // {
+        //  direction = 1f;
+        // } else {
+        // direction = -f;
+        // }
+
         Vector3 localSpawnPosition = new Vector3(slashOffsetX * direction, slashOffsetY, 0f);
 
         // Create the slash as a child of the player.
