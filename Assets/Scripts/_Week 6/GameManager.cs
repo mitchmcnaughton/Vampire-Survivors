@@ -37,15 +37,18 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         // TODO: Call the function that hides the Game Over screen.
-
+        ShowGameOverScreen(false);
 
 
         // TODO: Call the function that shows the In Game screen.
-
+        ShowInGameScreen(true);
 
 
         // TODO: If debug logs are enabled, print the starting spawner count.
-
+        if (showDebugLogs == true)
+        {
+            Debug.Log("GameManager: Starting Spawners:" + spawnerCount);
+        }
 
     }
 
@@ -69,21 +72,21 @@ public class GameManager : MonoBehaviour
         if (Keyboard.current[addSpawnerKey].wasPressedThisFrame)
         {
             // TODO: Call the function that adds a spawner.
-
+            AddSpawner();
 
         }
 
         if (Keyboard.current[removeSpawnerKey].wasPressedThisFrame)
         {
             // TODO: Call the function that removes a spawner.
-
+            RemoveSpawner();
 
         }
 
         if (Keyboard.current[gameOverKey].wasPressedThisFrame)
         {
             // TODO: Call the GameOver function.
-
+            GameOver();
 
         }
     }
@@ -93,27 +96,38 @@ public class GameManager : MonoBehaviour
         // TODO: Check whether the game is already over.
         // If it is, stop this function.
 
-
+        if (gameisOver)
+        {
+            return;
+        }
 
         // TODO: Set gameIsOver to true.
 
-
+        gameisOver = true;
 
         // TODO: Hide the In Game screen.
 
-
+        ShowInGameScreen(false);
 
         // TODO: Show the Game Over screen.
 
+        ShowGameOverScreen(true);
 
 
         // TODO: Check whether pauseOnDeath is true.
         // If it is, pause the game by setting Time.timeScale to 0.
 
-
+        if (pauseOnDeath == true)
+        {
+            Time.timeScale = 0f;
+        }
 
         // TODO: If debug logs are enabled, print "GameManager: Game Over.".
 
+        if (showDebugLogs == true)
+        {
+            Debug.Log("GameManager: Game Over.");
+        }
 
     }
 
@@ -121,7 +135,10 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Check that gameOverScreen is not null.
         // If it exists, use SetActive and pass in enabled.
-
+        if (gameOverScreen != null)
+        {
+            gameOverScreen.SetActive(enabled);
+        }
 
     }
 
@@ -129,7 +146,10 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Check that inGameScreen is not null.
         // If it exists, use SetActive and pass in enabled.
-
+        if (inGameScreen != null)
+        {
+            inGameScreen.SetActive(enabled);
+        }
 
     }
 
@@ -141,11 +161,15 @@ public class GameManager : MonoBehaviour
         }
 
         // TODO: Increase spawnerCount by 1.
-
+        spawnerCount += 1;
 
 
         // TODO: If debug logs are enabled, print the current spawner count.
 
+        if (showDebugLogs == true)
+        {
+            Debug.Log("GameManager: Current Spawner Count: " + spawnerCount);
+        }
 
     }
 
@@ -157,20 +181,28 @@ public class GameManager : MonoBehaviour
         }
 
         // TODO: Decrease spawnerCount by 1.
-
+        spawnerCount -= 1;
 
 
         // TODO: Check whether spawnerCount is below 0.
         // If it is, set spawnerCount back to 0.
-
-
+        if (spawnerCount < 0)
+        {
+            spawnerCount = 0;
+        }
 
         // TODO: If debug logs are enabled, print the current spawner count.
-
-
+        if (showDebugLogs == true)
+        {
+            Debug.Log("GameManager: Current Spawner Count: " + spawnerCount);
+        }
 
         // TODO: Check whether spawnerCount is 0 or less.
         // If it is, call GameOver.
+        if (spawnerCount <= 0)
+        {
+            GameOver();
+        }
 
 
     }
@@ -189,12 +221,12 @@ public class GameManager : MonoBehaviour
     public void ReturnToStartMenu()
     {
         // TODO: Make sure the game is running again.
-
+        Time.timeScale = 1f;
 
 
         // TODO: Load Scene 0.
         // Use the Retry function above as an example.
-
+        SceneManager.LoadScene(0);
 
     }
 }
