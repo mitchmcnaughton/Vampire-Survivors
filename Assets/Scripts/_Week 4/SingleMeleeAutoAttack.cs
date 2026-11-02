@@ -107,7 +107,7 @@ public class SingleMeleeAutoAttack : MonoBehaviour
 
             // TODO: Reset attackTimer to the cooldown value.
 
-            attackTimer = 0f;
+            attackTimer = cooldown;
         }
     }
 

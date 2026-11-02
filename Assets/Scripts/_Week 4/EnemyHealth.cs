@@ -151,7 +151,7 @@ public class EnemyHealth : MonoBehaviour
 
         // TODO: Subtract amount from the enemy's current health.
 
-        maxHP -= amount;
+        currentHP -= amount;
 
         // TODO: Check whether currentHP is below 0.
         // If it is, set currentHP to 0.

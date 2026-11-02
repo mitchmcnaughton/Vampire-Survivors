@@ -44,45 +44,61 @@ public class EnemySpawner : MonoBehaviour
     {
         // TODO: Check if audioSource is null.
         // If it is, get the AudioSource component from this GameObject.
-
+        if (audioSource == null) {
+            audioSource = GetComponent<AudioSource>();
+        }
 
 
         // TODO: Check if animator is null.
         // If it is, get the Animator component from this GameObject.
-
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
 
 
         // TODO: Check if gameManager is null.
         // If it is, find the GameManager in the scene.
-
+        if (gameManager == null)
+        {
+            gameManager = GetComponent<GameManager>();
+        }
 
     }
 
     private void Start()
     {
         // TODO: Call the function that plays the idle animation.
-
+        PlayIdleAnimation();
 
 
         // TODO: If debug logs are enabled, print that the EnemySpawner has started.
-
+        if (showDebugLogs)
+        {
+            Debug.Log("EnemySpawner: EnemySpawner has started");
+        }
 
 
         // TODO: Check that gameManager is not null.
         // If it exists, call AddSpawner.
-
+        if (gameManager != null )
+        {
+            gameManager.AddSpawner();
+        }
 
     }
 
     private void Update()
     {
         // TODO: Call the function that handles the debug input.
-
+        HandleDebugInput();
 
 
         // TODO: Check whether spawning is disabled.
         // If it is, stop this function.
-
+        if (!spawningEnabled) {
+            return;
+        }
 
 
         // TODO: Check whether enemyPrefab is null.
@@ -90,17 +106,29 @@ public class EnemySpawner : MonoBehaviour
         // - Print a warning if debug logs are enabled.
         // - Stop this function.
 
+        if (enemyPrefab == null) {
+            {
+                if (showDebugLogs)
+                {
+                    Debug.Log("EnemySpawner: Enemy Prefab is null");
+                }
+                return;
+            } }
 
 
         // TODO: Add Time.deltaTime to spawnTimer.
-
+        spawnTimer += Time.deltaTime;
 
 
         // TODO: Check whether spawnTimer is greater than or equal to spawnInterval.
         // If it is:
         // - Reset spawnTimer to 0.
         // - Call SpawnEnemy.
-
+         if (spawnTimer >= spawnInterval)
+        {
+            spawnTimer = 0f;
+            SpawnEnemy();
+        }
 
     }
 
@@ -108,14 +136,24 @@ public class EnemySpawner : MonoBehaviour
     {
         // TODO: Check whether playIdleAnimationOnStart is false.
         // If it is, stop this function.
-
+        if (!playIdleAnimationOnStart) 
+        {
+            return;
+        }
 
 
         // TODO: Check whether animator is null.
         // If it is:
         // - Print a warning if debug logs are enabled.
         // - Stop this function.
-
+        if (animator == null )
+        {
+            if (showDebugLogs)
+            {
+                Debug.Log("EnemySpawner: Animator is Null");
+            }
+            return;
+        }
 
 
         // TODO: Check whether idleAnimationName is empty.
@@ -124,14 +162,23 @@ public class EnemySpawner : MonoBehaviour
         // - Print a warning if debug logs are enabled.
         // - Stop this function.
 
-
+        if (string.IsNullOrWhiteSpace(idleAnimationName))
+        {
+            if (showDebugLogs)
+            {
+                Debug.Log("EnemySpawner: idleAnimationName is empty");
+            }
+        }
 
         // TODO: Play the animation stored in idleAnimationName.
-
+        animator.Play("Idle");
 
 
         // TODO: If debug logs are enabled, print the animation being played.
-
+        if (showDebugLogs)
+        {
+            Debug.Log("EnemySpawner: animation being played is " + idleAnimationName);
+        }
 
     }
 
@@ -139,41 +186,76 @@ public class EnemySpawner : MonoBehaviour
     {
         // TODO: Check whether debug keys are disabled.
         // If they are, stop this function.
-
+        if (!enableDebugKeys)
+        {
+            return;
+        }
 
 
         // TODO: Check whether Keyboard.current is null.
         // If it is, stop this function.
-
+        if (Keyboard.current == null)
+        {
+            return;
+        }
 
 
         // TODO: Check whether toggleSpawnKey was pressed.
         // If it was:
         // - Toggle spawningEnabled between true and false.
         // - Print the new value if debug logs are enabled.
-
+        if (Keyboard.current.pKey.isPressed)
+        {
+            if (spawningEnabled)
+            {
+                spawningEnabled = false;
+            }
+            else
+            {
+                spawningEnabled = true;
+            }
+            if (showDebugLogs)
+            {
+                Debug.Log("EnemySpawner: spawningEnabled is now : " + spawningEnabled);
+            }
+        }
 
 
         // TODO: Check whether spawnOnceKey was pressed.
         // If it was:
         // - Call SpawnEnemy.
         // - Print a debug message if debug logs are enabled.
+        if (Keyboard.current.oKey.isPressed)
+        {
+            SpawnEnemy();
 
+            if (showDebugLogs)
+            {
+                Debug.Log("EnemySpawner: SpawnEnemy was called");
+            }
 
-
+        }
         // TODO: Check whether destroyEnemiesKey was pressed.
         // If it was, call DestroySpawnedEnemies.
-
-
+        if (Keyboard.current.iKey.isPressed)
+        {
+            DestroySpawnedEnemies();
+        }
     }
+
+        
 
     public void StopSpawning()
     {
         // TODO: Set spawningEnabled to false.
-
+        spawningEnabled = false;
 
 
         // TODO: If debug logs are enabled, print that spawning has stopped.
+        if (showDebugLogs) 
+        {
+            Debug.Log("EnemySpawner: spawning has stopped");
+        }
 
 
     }
@@ -182,7 +264,10 @@ public class EnemySpawner : MonoBehaviour
     {
         // TODO: Check that gameManager is not null.
         // If it exists, call RemoveSpawner.
-
+        if (gameManager != null)
+        {
+            gameManager.RemoveSpawner();
+        }
 
     }
 
@@ -192,7 +277,14 @@ public class EnemySpawner : MonoBehaviour
         // If it is:
         // - Print a warning if debug logs are enabled.
         // - Stop this function.
-
+        if (enemyPrefab == null)
+        { 
+            if (showDebugLogs)
+            {
+                Debug.LogWarning("EnemySpawner: Cannot Spawn because enemyPrefab is null");
+            }
+            return;
+        }
 
 
         // Generate a random position inside the spawn radius.
@@ -200,13 +292,14 @@ public class EnemySpawner : MonoBehaviour
 
         // TODO: Calculate the final spawn position using
         // this GameObject's position and randomOffset.
-        Vector3 spawnPosition = new Vector3(0, 0, 0);
+        Vector3 spawnPosition = transform.position + (Vector3)randomOffset;
 
+        
 
 
         // TODO: Instantiate enemyPrefab at spawnPosition.
         // Store the newly created GameObject in enemyObject.
-        GameObject enemyObject = null;
+        GameObject enemyObject = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
 
 
@@ -216,10 +309,13 @@ public class EnemySpawner : MonoBehaviour
 
         // TODO: Call PlaySpawnFeedback and give it spawnPosition.
 
-
+        PlaySpawnFeedback(spawnPosition);
 
         // TODO: If debug logs are enabled, print where the enemy spawned.
-
+        if (showDebugLogs)
+        {
+            Debug.Log("EnemySpawner: Enemy spawned at the position " + spawnPosition);
+        }
 
     }
 
@@ -253,22 +349,28 @@ public class EnemySpawner : MonoBehaviour
         {
             // TODO: Instantiate spawnParticlePrefab at spawnPosition.
             // Store the newly created GameObject in particleObject.
-            GameObject particleObject = null;
+            GameObject particleObject = Instantiate(spawnParticlePrefab, spawnPosition, Quaternion.identity);
 
 
 
             // TODO: Destroy particleObject after spawnParticleLifetime seconds.
-
+            Destroy(particleObject, spawnParticleLifetime);
 
         }
 
         // TODO: Check that spawnSound and audioSource are not null.
         // If they exist, play spawnSound using the AudioSource.
-
+        if (spawnSound != null && audioSource != null) 
+        {
+            audioSource.PlayOneShot(spawnSound);
+        }
 
 
         // TODO: If debug logs are enabled, print that the spawn feedback played.
-
+        if (showDebugLogs) 
+        {
+            Debug.Log("EnemySpawner: Spawn feedback played");
+        }
 
     }
 

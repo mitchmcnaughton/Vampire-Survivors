@@ -186,7 +186,7 @@ public class PlayerExperience : MonoBehaviour
         }
 
         // TODO: Display the player's current level.
-        levelText.text = "player's current level is " + level;
+        levelText.text = "level" + level;
 
         // TODO: Check that gameOverLevelText is not null.
         // If it exists, display the level reached on the Game Over screen.

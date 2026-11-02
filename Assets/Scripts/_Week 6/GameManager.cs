@@ -96,14 +96,14 @@ public class GameManager : MonoBehaviour
         // TODO: Check whether the game is already over.
         // If it is, stop this function.
 
-        if (gameisOver)
+        if (gameIsOver)
         {
             return;
         }
 
         // TODO: Set gameIsOver to true.
 
-        gameisOver = true;
+        gameIsOver = true;
 
         // TODO: Hide the In Game screen.
 

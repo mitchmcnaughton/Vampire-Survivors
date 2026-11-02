@@ -52,7 +52,7 @@ public class EnemyChase : MonoBehaviour
         if (target == null)
         {
             // TODO: Find the GameObject with the Player tag.
-            GameObject playerObject = null;
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
 
             // TODO: Check that playerObject is not null.
             // If it exists, set target to the player's Transform.
@@ -121,13 +121,13 @@ public class EnemyChase : MonoBehaviour
         if (moveDirection.x > 0f)
         {
             // TODO: Set flipX so the enemy faces right.
-            spriteRenderer.flipX = !faceRightByDefault;
+            spriteRenderer.flipX = faceRightByDefault;
 
         }
         else if (moveDirection.x < 0f)
         {
             // TODO: Set flipX so the enemy faces left.
-            spriteRenderer.flipX = faceRightByDefault;
+            spriteRenderer.flipX = !faceRightByDefault;
 
         }
     }
