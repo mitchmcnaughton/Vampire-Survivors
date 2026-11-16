@@ -325,20 +325,28 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < spawnedEnemies.Count; i++)
         {
             // TODO: Check that the enemy at position i is not null.
+            if (spawnedEnemies[i] != null)
+            {
+                // TODO: Destroy the enemy at position i.
+                Destroy(spawnedEnemies[i]);
+            }
 
 
-
-            // TODO: Destroy the enemy at position i.
+            
 
 
         }
 
         // TODO: Clear the spawnedEnemies collection.
 
-
+        spawnedEnemies.Clear();
 
         // TODO: If debug logs are enabled, print that all spawned enemies were destroyed.
+        if(showDebugLogs)
+        {
+            Debug.Log("EnemySpawner: all spawned enemies destroyed");
 
+        }
 
     }
 

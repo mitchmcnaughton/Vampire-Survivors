@@ -127,7 +127,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (spriteRenderer == null)
         {
+            
             return;
+            
         }
 
         // Only flip when moving left or right.
@@ -135,10 +137,12 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput.x > 0f)
         {
             spriteRenderer.flipX = !faceRightByDefault;
+            Debug.Log("PlayerMovement:right");
         }
         else if (moveInput.x < 0f)
         {
             spriteRenderer.flipX = faceRightByDefault;
+            Debug.Log("PlayerMovement:left");
         }
     }
 }
