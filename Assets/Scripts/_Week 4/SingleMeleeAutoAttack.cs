@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.InteropServices;
+using UnityEngine;
 
 public class SingleMeleeAutoAttack : MonoBehaviour
 {
@@ -7,6 +8,14 @@ public class SingleMeleeAutoAttack : MonoBehaviour
     [Header("References")]
     public GameObject slashPrefab;
     public SpriteRenderer playerSpriteRenderer;
+
+    [Header("Ultimate Attack Settings")]
+    public GameObject ultimateSlashPrefab;
+    public int ultimateDamage = 20;
+    public float ultimateCooldown = 10f;
+    public KeyCode ultimateKey = KeyCode.Q;
+
+    private float ultimateTimer = 0f;
 
     [Header("Animation")]
     public Animator animator;
@@ -66,6 +75,7 @@ public class SingleMeleeAutoAttack : MonoBehaviour
     {
         UpdateFacingFromSprite();
         UpdateAutoAttack();
+        UpdateUltimateAttack();
     }
 
     private void UpdateFacingFromSprite()
@@ -108,6 +118,18 @@ public class SingleMeleeAutoAttack : MonoBehaviour
             // TODO: Reset attackTimer to the cooldown value.
 
             attackTimer = cooldown;
+        }
+    }
+
+    private void UpdateUltimateAttack()
+    {
+        ultimateTimer -= Time.deltaTime;
+
+        if(Input.GetKeyDown(ultimateKey) && ultimateTimer <0f)
+        {
+            PerformUltimateAttack();
+
+            ultimateTimer = ultimateCooldown;
         }
     }
 
@@ -209,4 +231,49 @@ public class SingleMeleeAutoAttack : MonoBehaviour
             Debug.Log("SingleMeleeAutoAttack: Auto slash spawned. FacingRight = " + facingRight + ", Damage = " + damage);
         }
     }
+
+    private void PerformUltimateAttack()
+    {
+        if (ultimateSlashPrefab == null)
+        {
+            Debug.LogWarning("No Ultimate Slash Prefab assigned!");
+            return;
+        }
+
+        float direction = facingRight ? 1f : -1f;
+
+        Vector3 spawnPosition = new Vector3(
+            slashOffsetX * direction,
+            slashOffsetY,
+            0f
+        );
+
+        GameObject ultimateObj = Instantiate(ultimateSlashPrefab, transform);
+
+        ultimateObj.transform.localPosition = spawnPosition;
+        ultimateObj.transform.localRotation = Quaternion.identity;
+
+        SpriteRenderer ultimateRenderer =
+            ultimateObj.GetComponentInChildren<SpriteRenderer>();
+
+        if (ultimateRenderer != null)
+        {
+            ultimateRenderer.flipX = !facingRight;
+        }
+
+        MeleeSlash ultimateSlash = ultimateObj.GetComponent<MeleeSlash>();
+
+        if (ultimateSlash != null)
+        {
+            ultimateSlash.Initialize(ultimateDamage);
+        }
+
+        PlayAttackAnimation();
+
+        if (showDebugLogs)
+        {
+            Debug.Log("ULTIMATE ATTACK ACTIVATED!");
+        }
+    }
+    
 }

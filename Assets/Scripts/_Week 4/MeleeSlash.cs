@@ -12,6 +12,10 @@ public class MeleeSlash : MonoBehaviour
     [Header("Debug")]
     public bool showDebugLogs = true;
 
+    [Header("Ultimate Settings")]
+    public bool isUltimate = false;
+    public int ultimateDamageMultiplier = 3;
+
     private void Awake()
     {
         // TODO: Get the Collider2D component from this GameObject.
@@ -37,8 +41,16 @@ public class MeleeSlash : MonoBehaviour
     public void Initialize(int damageAmount)
     {
         // TODO: Set damage to the damageAmount passed into this function.
-
+        //check if the slash is ultimateSlash
         damage = damageAmount;
+
+        if (isUltimate)
+        {
+            damage *= ultimateDamageMultiplier;
+            damage = damageAmount;
+        }
+
+       
     }
 
     private void OnTriggerEnter2D(Collider2D other)
