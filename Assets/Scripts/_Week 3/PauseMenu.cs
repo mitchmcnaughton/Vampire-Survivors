@@ -54,7 +54,7 @@ public class PauseMenu : MonoBehaviour
         // TODO: Show the pause menu.
         // Hint: Use the .SetActive() function.
         pauseMenu.SetActive(true);
-
+            
 
         // Pause the game.
         Time.timeScale = 0f;

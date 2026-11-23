@@ -50,19 +50,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1213923895681451975, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1.46685
       objectReference: {fileID: 0}
     - target: {fileID: 1213923895681451975, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.0525
       objectReference: {fileID: 0}
     - target: {fileID: 1213923895681451975, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1213923895681451975, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0094
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213923895681451975, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0126
+      objectReference: {fileID: 0}
+    - target: {fileID: 3878837463316941536, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3878837463316941536, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3878837463316941536, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5481274858072092008, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: lifetime
@@ -78,28 +94,24 @@ PrefabInstance:
       objectReference: {fileID: -9067331374460554116, guid: 54fe8a7584d03bd4dab14809377ff325, type: 3}
     - target: {fileID: 5841127476112614154, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_Color.b
-      value: 0.49123356
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5841127476112614154, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_Color.g
-      value: 0.49123356
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5841127476112614154, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_Color.r
-      value: 0.7830189
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5884366361490614676, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       propertyPath: m_Name
       value: UltimateSlash
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3878837463316941536, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5884366361490614676, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -1305607136524867401}
     - targetCorrespondingSourceObject: {fileID: 5884366361490614676, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2033324132848919152}
@@ -133,42 +145,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5884366361490614676, guid: 9ddeee9b8ffc7d24fb2b021be4ea7d20, type: 3}
   m_PrefabInstance: {fileID: 7187242966311783881}
   m_PrefabAsset: {fileID: 0}
---- !u!58 &-1305607136524867401
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3609440910860330077}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 5
 --- !u!95 &2033324132848919152
 Animator:
   serializedVersion: 7

@@ -28,6 +28,18 @@ public class PlayerExperience : MonoBehaviour
     [Header("Game Over UI")]
     public TextMeshProUGUI gameOverLevelText;
 
+    [Header("Level Up Menu")]
+    public LevelUpMenu levelUpMenu;
+
+
+    private void Awake()
+    {
+        if (levelUpMenu == null)
+        {
+            levelUpMenu = FindFirstObjectByType<LevelUpMenu>(FindObjectsInactive.Include);
+        }
+    }
+
     private void Start()
     {
         // TODO: Call the function that sets up the XP slider.
@@ -97,6 +109,9 @@ public class PlayerExperience : MonoBehaviour
 
     private void LevelUp()
     {
+
+        levelUpMenu.StartLevelMenu();
+        levelUpMenu.UpgradeChoices();
         // TODO: Remove the required XP from the player's current XP.
 
         currentXP -= xpToNextLevel;
