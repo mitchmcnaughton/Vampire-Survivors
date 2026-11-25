@@ -223,6 +223,7 @@ public class SingleMeleeAutoAttack : MonoBehaviour
         if (slash != null)
         {
             slash.Initialize(damage);
+            
         }
 
 

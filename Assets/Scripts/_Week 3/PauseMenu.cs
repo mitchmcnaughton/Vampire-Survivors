@@ -11,6 +11,8 @@ public class PauseMenu : MonoBehaviour
 
     public bool isPaused = false;
 
+    [Header("Level Up Menu")] 
+    public LevelUpMenu levelUpMenu;
     private void Start()
     {
         // Hide the pause menu when the game starts.
@@ -46,6 +48,12 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        if(levelUpMenu.isLevelUp == true)
+        {
+            
+            return;
+        } else
+        {
         // TODO: Set isPaused to true.
         isPaused = true;
 
@@ -61,7 +69,7 @@ public class PauseMenu : MonoBehaviour
 
         // TODO: Print "Game Paused" to the Console.
         Debug.Log("Game Paused");
-
+        }
     }
 
     // Hint: Don't forget to hook this function up to the UI Button.
