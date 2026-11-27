@@ -16817,7 +16817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelUpMenu: {fileID: 1569132533}
-  isLevelUp: 1
+  isLevelUp: 0
   playerMovement: {fileID: 1951729761}
   singleMeleeAutoAttack: {fileID: 1951729756}
 --- !u!114 &844147346

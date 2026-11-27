@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -9,9 +10,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed = 5f;
 
+    [Header("Roll Settings")]
+    public float rollSpeed = 10f;
+    public float rollDuration = 0.5f;
+    public float rollCooldown = 1f;
+
+    private bool isDashing = false;
+    private bool canDash = true;
+    public bool isInvincible = false;
+
     [Header("Animation")]
     public Animator animator;
     public string isMovingParameter = "isMoving";
+    public string rollTriggerParameter = "roll";
 
     [Header("Sprite")]
     public SpriteRenderer spriteRenderer;
@@ -19,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
-
+    private Vector2 lastMoveDirection = Vector2.right;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -37,7 +48,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (isDashing)
+        {
+            return;
+        }
+        if (Time.timeScale == 0f) return;
         ReadMovementInput();
+        HandleRollInput();
         UpdateAnimation();
         UpdateSpriteFlip();
     }
@@ -101,10 +118,65 @@ public class PlayerMovement : MonoBehaviour
         {
             moveInput = moveInput.normalized;
         }
+        //remember the last direction the player moved in, so we can use it for rolling when the player is not moving.
+        if(moveInput.sqrMagnitude > 0f)
+        {
+            lastMoveDirection = moveInput;
+        }
+    }
+
+    private void HandleRollInput()
+    {
+        if (Keyboard.current == null || !canDash)
+        {
+            return;
+        }
+
+        // Check whether the player pressed the Left Shift key.
+        if (Keyboard.current.leftShiftKey.wasPressedThisFrame)
+        {
+            // Start the dash coroutine.
+            StartCoroutine(Roll());
+        }
+    }
+
+
+    //this is the same as a for loop but you can pause it and wait for a certain amount of time before continuing
+    private IEnumerator Roll()
+    {
+        //runs on the first frame
+        canDash = false;
+        isDashing = true;
+        isInvincible = true;
+        //uses current movement direction or last movement direction if the player is not moving    
+        Vector2 rollDirection = moveInput.sqrMagnitude > 0f ? moveInput : lastMoveDirection;
+        rb.linearVelocity = rollDirection * rollSpeed;
+
+        if(animator != null && !string.IsNullOrEmpty(rollTriggerParameter))
+        {
+            //difference between SetBool and SetTrigger is that SetTrigger will automatically reset the trigger after it has been used, while SetBool will keep the value until it is changed again.
+            animator.SetTrigger(rollTriggerParameter);
+        }
+
+        //waits for 70% of the roll duration before turning off dashing and invincibility to shorten the invincibility window and make the roll feel more responsive.
+        yield return new WaitForSeconds(rollDuration*0.7f);
+        
+        isDashing = false;
+        isInvincible = false;
+        yield return new WaitForSeconds(rollDuration*0.3f);
+
+        yield return new WaitForSeconds(rollCooldown);
+        canDash = true;
     }
 
     private void FixedUpdate()
-    {
+    {   
+        //prevents normal movement from overiding roll velocity
+        if (isDashing)
+        {
+            return;
+        }
+
         // Apply the movement direction and speed to the Rigidbody.
         rb.linearVelocity = moveInput * moveSpeed;
     }

@@ -45,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
     public PlayerMovement movement;
     public SingleMeleeAutoAttack meleeAutoAttack;
     public GameManager gameManager;
+    public PlayerMovement playerMovement;
 
     [Header("Debug")]
     public bool enableDebugKeys = true;
@@ -207,6 +208,12 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (isDead == true)
+        {
+            return;
+        }
+        
+        //if player is invincible they don't take damage
+        if (playerMovement != null && playerMovement.isInvincible == true)
         {
             return;
         }
